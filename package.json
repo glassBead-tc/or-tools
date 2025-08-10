@@ -1,0 +1,21 @@
+{
+  "name": "ortools-ts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+          "postbuild": "mkdir -p dist/gen && cp src/gen/*.js dist/gen/ 2>/dev/null || true && cp src/gen/*.d.ts dist/gen/ 2>/dev/null || true",
+    "clean": "rm -rf dist src/gen",
+    "gen:cp_sat": "mkdir -p src/gen && pbjs -t static-module -w commonjs -p /workspace -o src/gen/cp_sat.js ortools/sat/cp_model.proto ortools/sat/sat_parameters.proto ortools/util/optional_boolean.proto && pbts -o src/gen/cp_sat.d.ts src/gen/cp_sat.js",
+    "prepare": "npm run gen:cp_sat && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "protobufjs": "^7.3.2",
+    "protobufjs-cli": "^1.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
